@@ -1,25 +1,20 @@
 import * as React from 'react';
-import './App.css';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-import { Button } from 'material-ui';
+import Home from './pages/home/Home';
+import Dashboard from './pages/dashboard/Dashboard';
 
-const logo = require('./logo.svg');
+// const logo = require('./logo.svg');
 
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <BrowserRouter>
+        <div>
+          <Route exact path="/" component={Home} />
+          <Route path="/dashboard" component={Dashboard} />
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <Button raised color="primary">
-          Hello World
-        </Button>
-      </div>
+      </BrowserRouter>
     );
   }
 }
