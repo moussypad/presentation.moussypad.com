@@ -1,0 +1,1 @@
+- material-ui: now using v1.0.0-beta.5, should replace typings type definition is ready.

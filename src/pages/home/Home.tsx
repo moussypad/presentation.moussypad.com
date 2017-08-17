@@ -1,6 +1,8 @@
 import * as React from 'react';
 import './private/Home.css';
 
+import LoginButton from '../../modules/auth/login/LoginButton';
+
 const logo = require('./private/logo.svg');
 
 class Home extends React.Component {
@@ -14,6 +16,7 @@ class Home extends React.Component {
         <p className="Home-intro">
           To get started, edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <LoginButton />
       </div>
     );
   }
