@@ -1,5 +1,6 @@
 import { ActionsT, ActionTypes } from './actions';
 import { UserProfileT } from './models';
+export { RootStateT } from '../../reduxConnect';
 
 type OnInitT = {
   current: 'OnInit'

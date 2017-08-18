@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { AppStateT } from './store';
 import { actionCreators } from './private/redux/actions';
-import { LoginStateT } from './private/redux/reducers';
+import { LoginStateT, RootStateT } from './private/redux/reducers';
 
 import Button from 'material-ui/Button';
 
@@ -35,7 +34,7 @@ class LoginButton extends React.PureComponent<PropsT> {
   }
 }
 
-const mapStateToProps = (appState: AppStateT) => ({
+const mapStateToProps = (appState: RootStateT) => ({
   loginState: appState.auth.login
 });
 const mapDispatchToProps = (dispatch: Dispatch<{}>) => ({
