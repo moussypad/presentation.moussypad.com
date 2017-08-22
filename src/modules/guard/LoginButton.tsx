@@ -2,7 +2,8 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { actionCreators } from './private/redux/login.actions';
 
-const googleSignInButton = require('./private/assets/googleSignInButton.png');
+// tslint:disable-next-line:no-any
+const googleSignInButton = require('./private/assets/googleSignInButton.png') as any;
 
 type OwnPropsT = {
   style?: React.CSSProperties;

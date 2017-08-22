@@ -1,2 +1,7 @@
 - material-ui: now using v1.0.0-beta.5, should replace typings type definition is ready.
+
 - better typing of sagas when https://github.com/Microsoft/TypeScript/issues/2983 ready.
+
+- cast require image to any to circumvent error from @types/webpack-env
+  e.g. const googleSignInButton = require('./private/assets/googleSignInButton.png') as any;
+  ref: https://stackoverflow.com/questions/44312170/displaying-a-static-image-using-react-typescript-and-webpack

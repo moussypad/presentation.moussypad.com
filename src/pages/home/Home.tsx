@@ -2,7 +2,8 @@ import * as React from 'react';
 import LoginButton from '../../modules/guard/LoginButton';
 import './private/Home.css';
 
-const logo = require('./private/logo.svg');
+// tslint:disable-next-line:no-any
+const logo = require('./private/logo.svg') as any;
 
 class Home extends React.PureComponent {
   render() {
