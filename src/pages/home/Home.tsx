@@ -1,11 +1,10 @@
 import * as React from 'react';
+import LoginButton from '../../modules/guard/LoginButton';
 import './private/Home.css';
-
-import LoginButton from '../../modules/auth/login/LoginButton';
 
 const logo = require('./private/logo.svg');
 
-class Home extends React.Component {
+class Home extends React.PureComponent {
   render() {
     return (
       <div className="Home">
@@ -13,9 +12,6 @@ class Home extends React.Component {
           <img src={logo} className="Home-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <p className="Home-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
         <LoginButton />
       </div>
     );

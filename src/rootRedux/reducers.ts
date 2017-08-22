@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import { AuthStateT, authReducer } from '../modules/auth/reduxConnect';
+import { guardReducer, GuardStateT } from '../modules/guard/reduxConnect';
 
 export type RootStateT = {
-  auth: AuthStateT
+  guard: GuardStateT
   // presentationState: PresentationStateT
   // apollo: ApolloStore
 };
 
 export const appReducer = combineReducers<RootStateT>({
-  auth: authReducer
+  guard: guardReducer
 });

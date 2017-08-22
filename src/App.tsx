@@ -1,19 +1,17 @@
 import * as React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-
+import { BrowserRouter, Switch } from 'react-router-dom';
+import GuardRoute from './modules/guard/GuardRoute';
 import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
 
-// const logo = require('./logo.svg');
-
-class App extends React.Component {
+class App extends React.PureComponent {
   render() {
     return (
       <BrowserRouter>
-        <div>
-          <Route exact path="/" component={Home} />
-          <Route path="/dashboard" component={Dashboard} />
-        </div>
+        <Switch>
+          <GuardRoute exact path="/" inverse component={Home} redirect="/dashboard" />
+          <GuardRoute exact path="/dashboard" component={Dashboard} redirect="/" />
+        </Switch>
       </BrowserRouter>
     );
   }
