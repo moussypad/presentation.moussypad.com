@@ -8,19 +8,24 @@
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.1.2",
-    "redux-saga": "^0.15.6"
+    "redux-saga": "^0.15.6",
+    "styled-components": "^2.1.2"
   },
   "devDependencies": {
+    "@storybook/addon-knobs": "^3.2.6",
     "@storybook/react": "^3.2.5",
     "@types/enzyme": "^2.8.6",
     "@types/gapi.auth2": "^0.0.43",
     "@types/jest": "^20.0.7",
     "@types/node": "^8.0.22",
+    "@types/node-uuid": "^0.0.28",
     "@types/react": "^16.0.2",
     "@types/react-dom": "^15.5.3",
     "@types/react-redux": "^5.0.4",
     "@types/react-router-dom": "^4.0.7",
+    "@types/storybook__addon-knobs": "^3.2.0",
     "@types/storybook__react": "^3.0.5",
+    "node-uuid": "^1.4.8",
     "react-scripts-ts": "2.6.0"
   },
   "scripts": {

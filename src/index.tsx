@@ -6,7 +6,7 @@ import './index.css';
 
 // Redux
 import { Provider } from 'react-redux';
-import { store } from './store';
+import { store } from './rootRedux/store';
 
 const RootRender = () => (
   <Provider store={store}>
