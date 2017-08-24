@@ -1,8 +1,8 @@
-import { fork } from 'redux-saga/effects';
+import { all, fork } from 'redux-saga/effects';
 import { guardFlowSaga } from '../modules/guard/reduxConnect';
 
 export function* rootSaga() {
-  yield [
+  yield all([
     fork(guardFlowSaga)
-  ];
+  ]);
 }
