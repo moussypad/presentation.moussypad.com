@@ -7,8 +7,9 @@ type TranslateYUpDown = number;
 type TranslateY50 = number;
 type TranslateX100 = number;
 
-export type ParamsT = {
+export type FlowT = {
   uid: string;
+  type: 'Like' | 'Happy' | 'Angry';
   top: number;
   depth: number;
   size: number;
@@ -18,7 +19,7 @@ export type ParamsT = {
 };
 
 type PropsT = {
-  params: ParamsT;
+  flow: FlowT;
   onAnimationComplete?: () => void;
 };
 
@@ -27,7 +28,7 @@ class ReactionFlow extends React.PureComponent<PropsT> {
   private animationOnProcess = ReactionFlow.TotalKeyFrames;
 
   shouldComponentUpdate(nextProps: Readonly<PropsT>) {
-    return this.props.params.uid !== nextProps.params.uid;
+    return this.props.flow.uid !== nextProps.flow.uid;
   }
 
   componentWillUpdate() {
@@ -35,9 +36,9 @@ class ReactionFlow extends React.PureComponent<PropsT> {
   }
 
   render() {
-    const { top, depth, size, delay, duration, pathFactors } = this.props.params;
+    const { type, top, depth, size, delay, duration, pathFactors } = this.props.flow;
     const [startTopFactor, startLeftFactor, translateYUpDownFactor, translateY50Factor, translateX100Factor] = pathFactors;
-    const children = this.props.children;
+    // const children = this.props.children;
 
     // we have to minus the reactionSize to prevent moving out of the bondary
     // but the reactionSize is in different scale, so we have to do (1 - r)CT + r(CT + CH) - r(RS)
@@ -127,9 +128,10 @@ class ReactionFlow extends React.PureComponent<PropsT> {
           <Vertical>
             <Diminish>
               <Expand>
-                {React.cloneElement(React.Children.only(children), {
+                <img src={require(`./assets/${type}.svg`)} style={{ width: `${size}vmax`, height: `${size}vmax` }} alt={type} />
+                {/* {React.cloneElement(React.Children.only(children), {
                   style: { ...React.Children.only(children).props.style, width: `${size}vmax`, height: `${size}vmax` }
-                })}
+                })} */}
               </Expand>
             </Diminish>
           </Vertical>
