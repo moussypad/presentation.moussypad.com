@@ -1,26 +1,20 @@
 import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-// type PropsT = {
-//   uid: string;
-//   duration: number;
-//   containerTop: number;
-//   containerHeight: number;
-//   reactionSize: number;
-//   onAnimationEnd?: () => void;
-// };
+type StartTop = number;
+type StartLeft = number;
+type TranslateYUpDown = number;
+type TranslateY50 = number;
+type TranslateX100 = number;
 
 export type ParamsT = {
   uid: string;
-  duration: number;
   top: number;
-  height: number;
+  depth: number;
   size: number;
-  startTopFactor: number;
-  startLeftFactor: number;
-  translateY50Factor: number;
-  translateYUpDownFactor: number;
-  translateX100Factor: number;
+  delay: number;
+  duration: number;
+  pathFactors: [StartTop, StartLeft, TranslateYUpDown, TranslateY50, TranslateX100]
 };
 
 type PropsT = {
@@ -28,7 +22,7 @@ type PropsT = {
   onAnimationComplete?: () => void;
 };
 
-class ReactionFlow extends React.Component<PropsT> {
+class ReactionFlow extends React.PureComponent<PropsT> {
   static TotalKeyFrames = 4;
   private animationOnProcess = ReactionFlow.TotalKeyFrames;
 
@@ -41,26 +35,21 @@ class ReactionFlow extends React.Component<PropsT> {
   }
 
   render() {
-    // const { containerTop, containerHeight, reactionSize, duration, children } = this.props;
-
-    const { duration, top, height, startTopFactor, startLeftFactor, 
-      translateY50Factor, translateX100Factor, translateYUpDownFactor, size } = this.props.params;
+    const { top, depth, size, delay, duration, pathFactors } = this.props.params;
+    const [startTopFactor, startLeftFactor, translateYUpDownFactor, translateY50Factor, translateX100Factor] = pathFactors;
     const children = this.props.children;
 
     // we have to minus the reactionSize to prevent moving out of the bondary
     // but the reactionSize is in different scale, so we have to do (1 - r)CT + r(CT + CH) - r(RS)
     // const r = startTopFactor;
-    const startTop = `calc(${(1 - startTopFactor) * top + startTopFactor * (top + height)}vh - ${startTopFactor * size}vmax)`;
+    const startTop = `calc(${(1 - startTopFactor) * top + startTopFactor * (top + depth)}vh - ${startTopFactor * size}vmax)`;
     const startLeft = `${startLeftFactor * 87.5 + (1 - startLeftFactor) * 92.5}vw`;
 
     // r = Math.random();
     const translateX100 = `${translateX100Factor * 100 + (1 - translateX100Factor) * 200}vw`;
-    console.log(Math.round(translateYUpDownFactor));
     const translateY50 = Math.round(translateYUpDownFactor) === 0
       ? `calc(${translateY50Factor} * (${top}vh - ${startTop}))`
-      : `calc(${translateY50Factor} * (${top + height}vh - ${startTop} - ${size}vmax))`;
-
-    console.log(translateY50);
+      : `calc(${translateY50Factor} * (${top + depth}vh - ${startTop} - ${size}vmax))`;
 
     const horizontalKeyFrames = keyframes`
       from {
@@ -73,7 +62,7 @@ class ReactionFlow extends React.Component<PropsT> {
     `;
 
     const Horizontal = styled.div`
-      animation: ${horizontalKeyFrames} ${duration}ms cubic-bezier(0.5, 0, 1, 1) 800ms 1 forwards;
+      animation: ${horizontalKeyFrames} ${duration}ms cubic-bezier(0.5, 0, 1, 1) ${delay + 300}ms 1 forwards;
     `;
 
     const verticalKeyFrames = keyframes`
@@ -93,7 +82,7 @@ class ReactionFlow extends React.Component<PropsT> {
     `;
 
     const Vertical = styled.div`
-      animation: ${verticalKeyFrames} ${duration}ms ease-in-out 800ms 1 forwards;
+      animation: ${verticalKeyFrames} ${duration}ms ease-in-out ${delay + 300}ms 1 forwards;
     `;
 
     const expandKeyFrames = keyframes`
@@ -111,7 +100,7 @@ class ReactionFlow extends React.Component<PropsT> {
     `;
 
     const Expand = styled.div`
-      animation: ${expandKeyFrames} 300ms ease-in-out 0s 1 forwards;
+      animation: ${expandKeyFrames} 300ms ease-in-out 0ms 1 forwards;
     `;
 
     const diminishKeyFrames = keyframes`
@@ -129,12 +118,11 @@ class ReactionFlow extends React.Component<PropsT> {
     `;
 
     const Diminish = styled.div`
-      animation: ${diminishKeyFrames} ${duration}ms ease-in-out 800ms 1 forwards;
+      animation: ${diminishKeyFrames} ${duration}ms ease-in-out ${delay + 300}ms 1 forwards;
     `;
 
     return (
-      // <div style={{ position: 'fixed', top: reactionTop, left: reactionLeft }} onAnimationEnd={this.handleAnimationEnd}>
-      <div style={{ position: 'fixed', top: startTop, left: startLeft }} onAnimationEnd={this.handleAnimationEnd}>
+      <div style={{ position: 'fixed', top: startTop, left: startLeft, transition: 's' }} onAnimationEnd={this.handleAnimationEnd}>
         <Horizontal>
           <Vertical>
             <Diminish>
@@ -159,9 +147,5 @@ class ReactionFlow extends React.Component<PropsT> {
     }
   }
 }
-
-// function getRndInteger(min: number, max: number) {
-//   return Math.floor(Math.random() * (max - min + 1)) + min;
-// }
 
 export default ReactionFlow;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactionFlow, { ParamsT as ReactionFlowParamsT } from './private/ReactionFlow';
+import ReactionFlow, { ParamsT } from './ReactionFlow';
 
 export type ReactionTypeT = 'Like' | 'Happy' | 'Angry';
 
@@ -10,10 +10,11 @@ export type ManifestT = {
 };
 
 export type ConfigT = {
-  duration: number;
   top: number;
-  height: number;
+  depth: number;
   size: number;
+  delay: number;
+  duration: number;
 };
 
 type ChannelT = {
@@ -26,9 +27,7 @@ type PropsT = {
   config: ConfigT;
 };
 
-class ReactionController extends React.Component<PropsT> {
-  // private flows: { uid: string, idle: boolean, reaction: string }[] = [];
-  // private reactionFlows: { isIdle: boolean, manifest: ManifestT }[];
+class ReactionController extends React.PureComponent<PropsT> {
   private channels: ChannelT[] = [];
   private config: ConfigT;
 
@@ -47,26 +46,22 @@ class ReactionController extends React.Component<PropsT> {
   }
 
   render() {
-    // const { uid, type, factors } = this.props.manifests;
-    const { duration, top, height, size } = this.config;
+    const { top, depth, size, delay, duration,  } = this.config;
 
     const display = this.channels.map((channel, index) => {
       const { uid, reactionType, factors } = channel.manifest;
-      const params: ReactionFlowParamsT = {
+      const params: ParamsT = {
         uid,
-        duration,
         top,
-        height,
+        depth,
         size,
-        startTopFactor: factors[0],
-        startLeftFactor: factors[1],
-        translateY50Factor: factors[2],
-        translateYUpDownFactor: factors[3],
-        translateX100Factor: factors[4],
+        delay,
+        duration,
+        pathFactors: [factors[0], factors[1], factors[2], factors[3], factors[4]]
       };
       return (
         <ReactionFlow key={index} params={params} onAnimationComplete={this.handleAnimationComplete(index)}>
-          <img src={require(`./private/assets/${reactionType}.svg`)} alt={reactionType} />
+          <img src={require(`./assets/${reactionType}.svg`)} alt={reactionType} />
         </ReactionFlow>
       );
     });
