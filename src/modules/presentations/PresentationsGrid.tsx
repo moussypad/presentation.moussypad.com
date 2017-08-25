@@ -5,6 +5,7 @@ import { actionCreators } from './private/redux/presentations.actions';
 import { PresentationsStateT } from './private/redux/presentations.reducers';
 
 import PresentationsGridComp from './private/components/PresentationsGridComp';
+import FourDotsLoading from '../../components/fourDotsLoading/FourDotsLoading';
 
 type OwnPropsT = {
   style?: React.CSSProperties;
@@ -34,7 +35,7 @@ class PresentationsGrid extends React.PureComponent<PropsT> {
         </div>
       );
     } else {
-      return null;
+      return <FourDotsLoading />;
     }
   }
 }
