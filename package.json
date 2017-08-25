@@ -33,7 +33,7 @@
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -s ./.storybook/public -p 6006",
     "build-storybook": "build-storybook"
   }
 }
