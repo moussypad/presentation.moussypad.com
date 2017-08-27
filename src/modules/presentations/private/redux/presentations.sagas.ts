@@ -17,8 +17,8 @@ async function getAllPresentations(): Promise<PresentationT[]> {
 
   return slideIds.map((id, i) => {
     return {
-      id,
-      provider: 'Google',
+      id: 'google@'.concat(id),
+      // provider: 'Google',
       thumbnailURL: thumbnailURLs[i]
     } as PresentationT;
   });

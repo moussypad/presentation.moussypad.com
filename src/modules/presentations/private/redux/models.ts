@@ -1,5 +1,5 @@
 export type PresentationT = {
   id: string;
-  provider: 'Google';
+  // provider: 'Google';
   thumbnailURL: string;
 };

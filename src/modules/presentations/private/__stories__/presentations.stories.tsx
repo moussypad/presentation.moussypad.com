@@ -9,7 +9,7 @@ import PresentationItemComp from '../components/PresentationItemComp';
 storiesOf('presentation', module)
   // .addDecorator(withKnobs)
   .add('<PresentationItemComp />', () => {
-    const presentation: PresentationT = { id: v4(), provider: 'Google', thumbnailURL: '/thumbnail1.png' };
+    const presentation: PresentationT = { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail1.png' };
     return (
       <div style={{ width: 400, height: 225 }}>
         <PresentationItemComp presentation={presentation} />
@@ -18,15 +18,15 @@ storiesOf('presentation', module)
   })
   .add('<PresentationsGridComp />', () => {
     const presentations: PresentationT[] = [
-      { id: v4(), provider: 'Google', thumbnailURL: '/thumbnail1.png' },
-      { id: v4(), provider: 'Google', thumbnailURL: '/thumbnail2.png' },
-      { id: v4(), provider: 'Google', thumbnailURL: '/thumbnail3.png' },
-      { id: v4(), provider: 'Google', thumbnailURL: '/thumbnail1.png' },
-      { id: v4(), provider: 'Google', thumbnailURL: '/thumbnail2.png' },
-      { id: v4(), provider: 'Google', thumbnailURL: '/thumbnail3.png' },
-      { id: v4(), provider: 'Google', thumbnailURL: '/thumbnail1.png' },
-      { id: v4(), provider: 'Google', thumbnailURL: '/thumbnail2.png' },
-      { id: v4(), provider: 'Google', thumbnailURL: '/thumbnail3.png' },
+      { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail1.png' },
+      { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail2.png' },
+      { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail3.png' },
+      { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail1.png' },
+      { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail2.png' },
+      { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail3.png' },
+      { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail1.png' },
+      { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail2.png' },
+      { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail3.png' },
     ];
     return <PresentationsGridComp presentations={presentations} />;
   });
