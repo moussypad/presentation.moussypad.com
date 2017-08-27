@@ -10,7 +10,7 @@ type StateT = {
   onHover: boolean;
 };
 
-class PresentationPlayer extends React.PureComponent<PropsT, StateT> {
+class PresentationItemComp extends React.PureComponent<PropsT, StateT> {
   state = { onHover: false };
 
   render() {
@@ -38,4 +38,4 @@ class PresentationPlayer extends React.PureComponent<PropsT, StateT> {
   handleMouseLeave = () => this.setState({ onHover: false });
 }
 
-export default PresentationPlayer;
+export default PresentationItemComp;

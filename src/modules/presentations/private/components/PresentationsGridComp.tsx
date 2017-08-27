@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Grid from 'material-ui/Grid';
-import PresentationPlayerComp from './PresentationPlayerComp';
+import PresentationItemComp from './PresentationItemComp';
 
 import { PresentationT } from '../redux/models';
 export { PresentationT };
@@ -19,7 +19,7 @@ class PresentationGridComp extends React.PureComponent<PropsT> {
           <Grid container spacing={8}>
             {presentations.map(presentation => (
               <Grid key={presentation.id} item xs={6} sm={4} md={3} >
-                <PresentationPlayerComp presentation={presentation} />
+                <PresentationItemComp presentation={presentation} />
               </Grid>
             ))}
           </Grid>
