@@ -1,4 +1,4 @@
-- material-ui: now using v1.0.0-beta.5, should replace typings type definition is ready.
+- material-ui: now using material-ui (v1.0.0-beta.6), material-ui-icons (1.0.0-beta.5)  should replace typings type definition is ready.
 
 - better typing of sagas when https://github.com/Microsoft/TypeScript/issues/2983 ready.
 
