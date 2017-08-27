@@ -8,11 +8,12 @@ type PropsT = {
 class GoogleSlide extends React.PureComponent<PropsT> {
   render() {
     const { id, style } = this.props;
+    const subId = id.split('@')[1];
     return (
       <div style={{ ...style, position: 'relative' }}>
         <iframe
           style={{ width: '100%', height: '100%' }}
-          src={`https://docs.google.com/presentation/d/${id}/embed`}
+          src={`https://docs.google.com/presentation/d/${subId}/embed`}
           frameBorder={0}
         />
         <img
