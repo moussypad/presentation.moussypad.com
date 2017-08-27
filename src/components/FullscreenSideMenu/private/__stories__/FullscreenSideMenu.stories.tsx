@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, select, number } from '@storybook/addon-knobs';
-import FullscreenSideMenu, { PositionT, AlignT } from '../../FullscreenSideMenu';
+import FullscreenSideMenu, { PositionT, AlignT } from '../../../FullscreenSideMenu';
 
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';

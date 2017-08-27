@@ -16,7 +16,7 @@ class FourDotsLoading extends React.Component {
   render() {
     return (
       <div style={style}>
-        <img style={{ width: '20vmax' }} src={require('./private/assets/fourDotsLoading.gif')} alt="loading" />
+        <img style={{ width: '20vmax' }} src={require('./private/assets/dots.gif')} alt="loading" />
       </div>
     );
   }

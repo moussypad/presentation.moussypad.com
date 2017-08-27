@@ -5,7 +5,7 @@ import { actionCreators } from './private/redux/presentations.actions';
 import { PresentationsStateT } from './private/redux/presentations.reducers';
 
 import PresentationsGridComp from './private/components/PresentationsGridComp';
-import FourDotsLoading from '../../components/fourDotsLoading/FourDotsLoading';
+import FourDotsLoading from '../../components/FourDotsLoading';
 
 type OwnPropsT = {
   style?: React.CSSProperties;
