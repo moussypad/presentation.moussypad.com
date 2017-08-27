@@ -8,7 +8,7 @@ const req = require.context('../src', true, /\.stories\.tsx$/)
 
 addDecorator(story => (
   <Provider store={store}>
-    <div style={{ width: '100%', height: '100%', backgroundColor: '#F1F1F1'}}>
+    <div style={{ width: '100vw', height: '100vh', backgroundColor: '#F1F1F1'}}>
       {story()}
     </div>
   </Provider>
