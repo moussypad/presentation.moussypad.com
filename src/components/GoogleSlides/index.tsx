@@ -1,25 +1,23 @@
 import * as React from 'react';
 
 type PropsT = {
-  id: string;
+  id: string | null;
   style?: React.CSSProperties;
+  iframeRef?: React.Ref<HTMLIFrameElement>;
+  onExit?: () => void;
 };
 
 class GoogleSlide extends React.PureComponent<PropsT> {
   render() {
-    const { id, style } = this.props;
-    const subId = id.split('@')[1];
+    const { id, style, iframeRef } = this.props;
+    const subId = id ? id.split('@')[1] : null;
     return (
-      <div style={{ ...style, position: 'relative' }}>
+      <div style={{ width: '100%', height: '100%', ...style, position: 'relative' }}>
         <iframe
           style={{ width: '100%', height: '100%' }}
-          src={`https://docs.google.com/presentation/d/${subId}/embed`}
+          ref={iframeRef}
+          src={subId ? `https://docs.google.com/presentation/d/${subId}/embed` : ''}
           frameBorder={0}
-        />
-        <img
-          style={{ position: 'absolute', bottom: 2, left: 272, width: 26, height: 26, backgroundColor: '#323232' }}
-          src={require('./private/assets/exit.png')}
-          alt="exit"
         />
       </div>
     );
