@@ -48,7 +48,7 @@ class FullscreenSideMenu extends React.PureComponent<PropsT, StateT> {
             direction={config.direction}
             justify={config.justify}
             align={config.align}
-            style={{ ...config.gridStyle, pointerEvents: open ? 'auto' : 'none' }}
+            style={{ ...config.gridStyle, padding: 20, pointerEvents: open ? 'auto' : 'none' }}
           >
             {display}
           </Grid>

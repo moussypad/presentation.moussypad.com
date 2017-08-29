@@ -6,9 +6,9 @@ import FullscreenSideMenu, { PositionT, AlignT } from '../../../FullscreenSideMe
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 
-storiesOf('SideMenu', module)
+storiesOf('FullscreenSideMenu', module)
   .addDecorator(withKnobs)
-  .add('<SideMenu />', () => {
+  .add('<FullscreenSideMenu />', () => {
     const positionOptions: { [key: string]: PositionT } = {
       top: 'top',
       bottom: 'bottom',
