@@ -5,6 +5,8 @@ import { actionCreators } from './private/redux/auth.actions';
 import { AuthStateT } from './private/redux/auth.reducers';
 import { RootStateT } from './reduxConnect';
 
+// import Loading from '../../components/Loading';
+
 type OwnPropsT = {
   redirect: string,
   inverse?: boolean
@@ -38,7 +40,8 @@ class GuardRoute extends React.PureComponent<PropsT> {
     switch (current) {
       case 'OnInit':
       case 'OnProcess':
-        return <h1>Loading...</h1>;
+        return null;
+        // return <Loading />;
       case 'OnSucceed':
         return inverse
           ? <Redirect to={{ pathname: this.props.redirect, state: { from: this.props.location } }} />
