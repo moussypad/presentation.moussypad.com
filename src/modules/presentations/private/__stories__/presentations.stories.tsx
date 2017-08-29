@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { v4 } from 'node-uuid';
-// import { withKnobs, number } from '@storybook/addon-knobs';
+import { withKnobs } from '@storybook/addon-knobs';
 
-import PresentationsGridComp, { PresentationT } from '../components/PresentationsGridComp';
-import PresentationItemComp from '../components/PresentationItemComp';
+import PresentationsGridComponent, { PresentationT } from '../components/PresentationsGridComponent';
+import PresentationGridItemComponent from '../components/PresentationGridItemComponent';
 
 storiesOf('presentation', module)
-  // .addDecorator(withKnobs)
-  .add('<PresentationItemComp />', () => {
+  .addDecorator(withKnobs)
+  .add('<PresentationGridItemComponent />', () => {
     const presentation: PresentationT = { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail1.png' };
     return (
       <div style={{ width: 400, height: 225 }}>
-        <PresentationItemComp presentation={presentation} />
+        <PresentationGridItemComponent presentation={presentation} onStart={(_presentation: PresentationT) => console.log(presentation)} />
       </div>
     );
   })
-  .add('<PresentationsGridComp />', () => {
+  .add('<PresentationsGridComponent />', () => {
     const presentations: PresentationT[] = [
       { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail1.png' },
       { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail2.png' },
@@ -28,5 +28,5 @@ storiesOf('presentation', module)
       { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail2.png' },
       { id: 'google@'.concat(v4()), thumbnailURL: '/thumbnail3.png' },
     ];
-    return <PresentationsGridComp presentations={presentations} />;
+    return <PresentationsGridComponent presentations={presentations} />;
   });

@@ -4,23 +4,25 @@ import { PresentationT } from '../redux/models';
 
 type PropsT = {
   presentation: PresentationT;
+  onStart: (presentation: PresentationT) => void;
 };
 
 type StateT = {
   onHover: boolean;
 };
 
-class PresentationItemComp extends React.PureComponent<PropsT, StateT> {
+class PresentationItemDump extends React.PureComponent<PropsT, StateT> {
   state = { onHover: false };
 
   render() {
-    const { presentation } = this.props;
+    const { presentation, onStart } = this.props;
     const { onHover } = this.state;
     return (
       <div
         style={{ position: 'relative', width: '100%', height: '100%' }}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
+        onClick={() => onStart(presentation)}
       >
         <img
           style={{ width: '100%', height: '100%' }}
@@ -38,4 +40,4 @@ class PresentationItemComp extends React.PureComponent<PropsT, StateT> {
   handleMouseLeave = () => this.setState({ onHover: false });
 }
 
-export default PresentationItemComp;
+export default PresentationItemDump;

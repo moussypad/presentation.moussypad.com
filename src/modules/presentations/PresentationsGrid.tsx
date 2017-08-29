@@ -4,8 +4,9 @@ import { RootStateT } from './reduxConnect';
 import { actionCreators } from './private/redux/presentations.actions';
 import { PresentationsStateT } from './private/redux/presentations.reducers';
 
-import PresentationsGridComp from './private/components/PresentationsGridComp';
-import FourDotsLoading from '../../components/FourDotsLoading';
+import PresentationsGridComponent from './private/components/PresentationsGridComponent';
+import PresentationPlayer from './PresentationPlayer';
+import Loading from '../../components/Loading';
 
 type OwnPropsT = {
   style?: React.CSSProperties;
@@ -31,17 +32,22 @@ class PresentationsGrid extends React.PureComponent<PropsT> {
     if (presentationsState.current === 'OnSucceed') {
       return (
         <div style={style}>
-          <PresentationsGridComp presentations={presentationsState.presentations}/>
+          <PresentationsGridComponent presentations={presentationsState.presentations} />
+          <PresentationPlayer />
         </div>
       );
     } else {
-      return <FourDotsLoading />;
+      return (
+        <div style={style}>
+          <Loading />
+        </div>
+      );
     }
   }
 }
 
 const mapStateToProps = (appState: RootStateT) => ({
-  presentationsState: appState.presentations
+  presentationsState: appState.presentationSuite.presentationsState
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<{}>) => ({

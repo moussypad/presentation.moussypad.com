@@ -11,7 +11,7 @@ type OnSucceedT = {
 };
 
 type OnProcessT = {
-  current: 'OnProcess',
+  current: 'OnProcess'
 };
 
 type OnFailureT = {
