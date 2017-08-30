@@ -16,4 +16,4 @@ export const guardReducer = combineReducers({
   logout: logoutReducer
 });
 
-export { RootStateT } from '../../rootRedux/store';
+export { RootStateT } from '../../rootRedux/root.reducers';
