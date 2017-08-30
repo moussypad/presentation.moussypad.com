@@ -13,4 +13,4 @@ export const presentationSuiteReducer = combineReducers({
   playerState: playerReducer
 });
 
-export { RootStateT } from '../../rootRedux/store';
+export { RootStateT } from '../../rootRedux/root.reducers';

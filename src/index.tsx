@@ -5,13 +5,16 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
 // Redux
-import { Provider } from 'react-redux';
 import { store } from './rootRedux/store';
 
+// Apollo
+import { ApolloProvider } from 'react-apollo';
+import { client } from './rootRedux/apolloClient';
+
 const RootRender = () => (
-  <Provider store={store}>
+  <ApolloProvider store={store} client={client}>
     <App />
-  </Provider>
+  </ApolloProvider>
 );
 
 ReactDOM.render(
