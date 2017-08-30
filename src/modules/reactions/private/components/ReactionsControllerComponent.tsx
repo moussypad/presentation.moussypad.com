@@ -11,7 +11,7 @@ type PropsT = {
   flows: FlowT[];
 };
 
-class ReactionThroughputControllerComponent extends React.PureComponent<PropsT> {
+class ReactionsControllerComponent extends React.PureComponent<PropsT> {
   private channels: ChannelT[] = [];
 
   constructor(props: PropsT) {
@@ -65,4 +65,4 @@ class ReactionThroughputControllerComponent extends React.PureComponent<PropsT> 
   }
 }
 
-export default ReactionThroughputControllerComponent;
+export default ReactionsControllerComponent;

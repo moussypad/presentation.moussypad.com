@@ -3,8 +3,8 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 import { v4 } from 'node-uuid';
 import ReactionFlowComponent, { FlowT } from '../components/ReactionFlowComponent';
-import ReactionThroughputControllerComponent from '../components/ReactionThroughputControllerComponent';
-import ReactionPanel from '../../ReactionPanel';
+import ReactionsControllerComponent from '../components/ReactionsControllerComponent';
+import ReactionsPanel from '../../ReactionsPanel';
 // import Reaction from '../../Reaction';
 
 storiesOf('reactions', module)
@@ -47,7 +47,7 @@ storiesOf('reactions', module)
       </div>
     );
   })
-  .add('<ReactionThroughputControllerComponent />', () => {
+  .add('<ReactionsControllerComponent />', () => {
     const numOfReactions = number('accumulated reactions', 1);
 
     const style: React.CSSProperties = {
@@ -77,12 +77,12 @@ storiesOf('reactions', module)
 
     return (
       <div>
-        <ReactionThroughputControllerComponent flows={flows} />
+        <ReactionsControllerComponent flows={flows} />
         <div style={style} />
       </div>
     );
   })
-  .add('<ReactionPanel />', () => {
+  .add('<ReactionsPanel />', () => {
     const top = number('top', 30);
     const depth = number('depth', 30);
     const size = number('size', 3);
@@ -101,7 +101,7 @@ storiesOf('reactions', module)
 
     return (
       <div>
-        <ReactionPanel top={top} depth={depth} size={size} duration={duration} />
+        <ReactionsPanel top={top} depth={depth} size={size} duration={duration} />
         <div style={style} />
       </div>
     );
