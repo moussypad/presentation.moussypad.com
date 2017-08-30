@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ReactionFlow, { FlowT } from './ReactionFlow';
+import ReactionFlowComponent, { FlowT } from './ReactionFlowComponent';
 export { FlowT };
 
 type ChannelT = {
@@ -11,7 +11,7 @@ type PropsT = {
   flows: FlowT[];
 };
 
-class ReactionThroughputController extends React.PureComponent<PropsT> {
+class ReactionThroughputControllerComponent extends React.PureComponent<PropsT> {
   private channels: ChannelT[] = [];
 
   constructor(props: PropsT) {
@@ -36,7 +36,7 @@ class ReactionThroughputController extends React.PureComponent<PropsT> {
         duration,
         pathFactors
       };
-      return <ReactionFlow key={index} flow={flow} onAnimationComplete={this.handleAnimationComplete(index)} />;
+      return <ReactionFlowComponent key={index} flow={flow} onAnimationComplete={this.handleAnimationComplete(index)} />;
     });
 
     return (
@@ -65,4 +65,4 @@ class ReactionThroughputController extends React.PureComponent<PropsT> {
   }
 }
 
-export default ReactionThroughputController;
+export default ReactionThroughputControllerComponent;

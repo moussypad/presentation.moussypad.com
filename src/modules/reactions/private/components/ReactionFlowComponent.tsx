@@ -23,16 +23,16 @@ type PropsT = {
   onAnimationComplete?: () => void;
 };
 
-class ReactionFlow extends React.PureComponent<PropsT> {
+class ReactionFlowComponent extends React.PureComponent<PropsT> {
   static TotalKeyFrames = 4;
-  private animationOnProcess = ReactionFlow.TotalKeyFrames;
+  private animationOnProcess = ReactionFlowComponent.TotalKeyFrames;
 
   shouldComponentUpdate(nextProps: Readonly<PropsT>) {
     return this.props.flow.uid !== nextProps.flow.uid;
   }
 
   componentWillUpdate() {
-    this.animationOnProcess = ReactionFlow.TotalKeyFrames;
+    this.animationOnProcess = ReactionFlowComponent.TotalKeyFrames;
   }
 
   render() {
@@ -128,7 +128,7 @@ class ReactionFlow extends React.PureComponent<PropsT> {
           <Vertical>
             <Diminish>
               <Expand>
-                <img src={require(`./assets/${type}.svg`)} style={{ width: `${size}vmax`, height: `${size}vmax` }} alt={type} />
+                <img src={require(`../assets/${type}.svg`)} style={{ width: `${size}vmax`, height: `${size}vmax` }} alt={type} />
                 {/* {React.cloneElement(React.Children.only(children), {
                   style: { ...React.Children.only(children).props.style, width: `${size}vmax`, height: `${size}vmax` }
                 })} */}
@@ -150,4 +150,4 @@ class ReactionFlow extends React.PureComponent<PropsT> {
   }
 }
 
-export default ReactionFlow;
+export default ReactionFlowComponent;

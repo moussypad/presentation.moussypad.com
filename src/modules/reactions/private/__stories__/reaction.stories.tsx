@@ -2,14 +2,14 @@ import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, number } from '@storybook/addon-knobs';
 import { v4 } from 'node-uuid';
-import ReactionFlow, { FlowT } from '../ReactionFlow';
-import ReactionThroughputController from '../ReactionThroughputController';
+import ReactionFlowComponent, { FlowT } from '../components/ReactionFlowComponent';
+import ReactionThroughputControllerComponent from '../components/ReactionThroughputControllerComponent';
 import ReactionPanel from '../../ReactionPanel';
 // import Reaction from '../../Reaction';
 
-storiesOf('reaction', module)
+storiesOf('reactions', module)
   .addDecorator(withKnobs)
-  .add('<ReactionFlow /> (private)', () => {
+  .add('<ReactionFlowComponent />', () => {
     const top = number('top', 30);
     const depth = number('depth', 30);
     const size = number('size', 3);
@@ -40,14 +40,14 @@ storiesOf('reaction', module)
 
     return (
       <div>
-        <ReactionFlow flow={flow}>
+        <ReactionFlowComponent flow={flow}>
           <img src={require('../assets/Like.svg')} alt="like" />
-        </ReactionFlow>
+        </ReactionFlowComponent>
         <div style={style} />
       </div>
     );
   })
-  .add('<ReactionThroughputController /> (private)', () => {
+  .add('<ReactionThroughputControllerComponent />', () => {
     const numOfReactions = number('accumulated reactions', 1);
 
     const style: React.CSSProperties = {
@@ -77,7 +77,7 @@ storiesOf('reaction', module)
 
     return (
       <div>
-        <ReactionThroughputController flows={flows} />
+        <ReactionThroughputControllerComponent flows={flows} />
         <div style={style} />
       </div>
     );
