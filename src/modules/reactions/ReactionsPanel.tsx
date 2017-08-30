@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { v4 } from 'node-uuid';
-import ReactionThroughputControllerComponent, { FlowT } from './private/components/ReactionThroughputControllerComponent';
+import ReactionsControllerComponent, { FlowT } from './private/components/ReactionsControllerComponent';
 
 // tslint:disable-next-line:no-any
 const like = require('./private/assets/Like.svg') as any;
@@ -20,7 +20,7 @@ type StateT = {
   flows: FlowT[];
 };
 
-class ReactionPanel extends React.PureComponent<PropsT, StateT> {
+class ReactionsPanel extends React.PureComponent<PropsT, StateT> {
   constructor(props: PropsT) {
     super(props);
     this.state = {
@@ -32,7 +32,7 @@ class ReactionPanel extends React.PureComponent<PropsT, StateT> {
     const { flows } = this.state;
     return (
       <div style={{ display: 'inline-block' }}>
-        <ReactionThroughputControllerComponent flows={flows} />
+        <ReactionsControllerComponent flows={flows} />
         <img src={like} style={{ width: 50, padding: 10 }} onClick={this.handleClick('Like')} alt="Like" />
         <img src={happy} style={{ width: 50, padding: 10 }} onClick={this.handleClick('Happy')} alt="Happy" />
         <img src={angry} style={{ width: 50, padding: 10 }} onClick={this.handleClick('Angry')} alt="Angry" />
@@ -79,4 +79,4 @@ class ReactionPanel extends React.PureComponent<PropsT, StateT> {
 //   return flows;
 // }
 
-export default ReactionPanel;
+export default ReactionsPanel;
