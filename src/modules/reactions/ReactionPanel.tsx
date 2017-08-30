@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { v4 } from 'node-uuid';
-import ReactionThroughputController, { FlowT } from './private/ReactionThroughputController';
+import ReactionThroughputControllerComponent, { FlowT } from './private/components/ReactionThroughputControllerComponent';
 
 // tslint:disable-next-line:no-any
 const like = require('./private/assets/Like.svg') as any;
@@ -32,7 +32,7 @@ class ReactionPanel extends React.PureComponent<PropsT, StateT> {
     const { flows } = this.state;
     return (
       <div style={{ display: 'inline-block' }}>
-        <ReactionThroughputController flows={flows} />
+        <ReactionThroughputControllerComponent flows={flows} />
         <img src={like} style={{ width: 50, padding: 10 }} onClick={this.handleClick('Like')} alt="Like" />
         <img src={happy} style={{ width: 50, padding: 10 }} onClick={this.handleClick('Happy')} alt="Happy" />
         <img src={angry} style={{ width: 50, padding: 10 }} onClick={this.handleClick('Angry')} alt="Angry" />
