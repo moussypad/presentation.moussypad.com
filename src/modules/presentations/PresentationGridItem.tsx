@@ -14,10 +14,10 @@ type DispatchToPropsT = {
 
 type PropsT = OwnPropsT & DispatchToPropsT;
 
-class PresentationItem extends React.PureComponent<PropsT> {
+class PresentationGridItem extends React.PureComponent<PropsT> {
   render() {
     const { presentation, requestLoadPresentation } = this.props;
-    return <PresentationGridItemComponent presentation={presentation} onStart={requestLoadPresentation}/>;
+    return <PresentationGridItemComponent presentation={presentation} onStart={requestLoadPresentation} />;
   }
 }
 
@@ -25,4 +25,4 @@ const mapDispatchToProps = (dispatch: Dispatch<{}>) => ({
   requestLoadPresentation: (presentation: PresentationT) => dispatch(actionCreators.startPresentation(presentation.id))
 });
 
-export default connect<null, DispatchToPropsT, OwnPropsT>(null, mapDispatchToProps)(PresentationItem);
+export default connect<null, DispatchToPropsT, OwnPropsT>(null, mapDispatchToProps)(PresentationGridItem);

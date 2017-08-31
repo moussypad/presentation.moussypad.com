@@ -11,7 +11,7 @@ type StateT = {
   onHover: boolean;
 };
 
-class PresentationItemDump extends React.PureComponent<PropsT, StateT> {
+class PresentationItemComponent extends React.PureComponent<PropsT, StateT> {
   state = { onHover: false };
 
   render() {
@@ -40,4 +40,4 @@ class PresentationItemDump extends React.PureComponent<PropsT, StateT> {
   handleMouseLeave = () => this.setState({ onHover: false });
 }
 
-export default PresentationItemDump;
+export default PresentationItemComponent;
