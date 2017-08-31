@@ -2,13 +2,28 @@ import * as React from 'react';
 import ReactionFlowComponent, { ReactionFlowT } from './ReactionFlowComponent';
 export { ReactionFlowT };
 
+export type ReactionFlowStaticParamsT = {
+  top: number,
+  depth: number,
+  size: number,
+  duration: number,
+  delay: number,
+};
+
+export type ReactionFlowDynamicParamsT = {
+  id: string;
+  type: 'Like' | 'Happy' | 'Angry';
+  pathFactors: [number, number, number, number, number]
+};
+
 type ChannelT = {
   isIdle: boolean;
   reactionFlow: ReactionFlowT;
 };
 
 type PropsT = {
-  reactionFlows: ReactionFlowT[];
+  reactionFlowStaticParams: ReactionFlowStaticParamsT;
+  reactionFlowsDynamicParams: ReactionFlowDynamicParamsT[];
 };
 
 class ReactionsControllerComponent extends React.PureComponent<PropsT> {
@@ -16,11 +31,11 @@ class ReactionsControllerComponent extends React.PureComponent<PropsT> {
 
   constructor(props: PropsT) {
     super(props);
-    this.setChannels(props.reactionFlows);
+    this.setChannels(props.reactionFlowsDynamicParams);
   }
 
   componentWillUpdate(nextProps: Readonly<PropsT>) {
-    this.setChannels(nextProps.reactionFlows);
+    this.setChannels(nextProps.reactionFlowsDynamicParams);
   }
 
   render() {
@@ -50,8 +65,10 @@ class ReactionsControllerComponent extends React.PureComponent<PropsT> {
     return () => this.channels[index].isIdle = true;
   }
 
-  private setChannels(reactionFlows: ReactionFlowT[]) {
-    reactionFlows.map(reactionFlow => {
+  private setChannels(reactionFlowsDynamicParams: ReactionFlowDynamicParamsT[]) {
+    const { reactionFlowStaticParams } = this.props;
+    reactionFlowsDynamicParams.map(reactionFlowDynamicParams => {
+      const reactionFlow: ReactionFlowT = { ...reactionFlowDynamicParams, ...reactionFlowStaticParams };
       const idleIndex = this.channels.findIndex(channel => channel.isIdle === true);
 
       if (idleIndex === -1) {
