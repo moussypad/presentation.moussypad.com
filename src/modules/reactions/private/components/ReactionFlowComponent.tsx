@@ -7,8 +7,8 @@ type TranslateYUpDown = number;
 type TranslateY50 = number;
 type TranslateX100 = number;
 
-export type FlowT = {
-  uid: string;
+export type ReactionFlowT = {
+  id: string;
   type: 'Like' | 'Happy' | 'Angry';
   top: number;
   depth: number;
@@ -19,16 +19,19 @@ export type FlowT = {
 };
 
 type PropsT = {
-  flow: FlowT;
+  reactionFlow: ReactionFlowT;
   onAnimationComplete?: () => void;
 };
 
-class ReactionFlowComponent extends React.PureComponent<PropsT> {
+class ReactionFlowComponent extends React.Component<PropsT> {
   static TotalKeyFrames = 4;
   private animationOnProcess = ReactionFlowComponent.TotalKeyFrames;
 
   shouldComponentUpdate(nextProps: Readonly<PropsT>) {
-    return this.props.flow.uid !== nextProps.flow.uid;
+    if (nextProps.reactionFlow.id) {
+      return this.props.reactionFlow.id !== nextProps.reactionFlow.id;
+    }
+    return false;
   }
 
   componentWillUpdate() {
@@ -36,7 +39,7 @@ class ReactionFlowComponent extends React.PureComponent<PropsT> {
   }
 
   render() {
-    const { type, top, depth, size, delay, duration, pathFactors } = this.props.flow;
+    const { type, top, depth, size, delay, duration, pathFactors } = this.props.reactionFlow;
     const [startTopFactor, startLeftFactor, translateYUpDownFactor, translateY50Factor, translateX100Factor] = pathFactors;
     // const children = this.props.children;
 

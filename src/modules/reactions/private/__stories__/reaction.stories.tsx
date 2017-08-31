@@ -1,24 +1,25 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, number } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import { v4 } from 'node-uuid';
-import ReactionFlowComponent, { FlowT } from '../components/ReactionFlowComponent';
+import ReactionFlowComponent, { ReactionFlowT } from '../components/ReactionFlowComponent';
 import ReactionsControllerComponent from '../components/ReactionsControllerComponent';
-import ReactionsPanel from '../../ReactionsPanel';
-// import Reaction from '../../Reaction';
+import ReactionsPanelComponent from '../components/ReactionsPanelComponent';
 
 storiesOf('reactions', module)
   .addDecorator(withKnobs)
   .add('<ReactionFlowComponent />', () => {
+    const type = 'Like';
     const top = number('top', 30);
     const depth = number('depth', 30);
     const size = number('size', 3);
     const delay = number('delay', 2000);
     const duration = number('duration', 5000);
 
-    const flow: FlowT = {
-      uid: v4(),
-      type: 'Like',
+    const reactionFlow: ReactionFlowT = {
+      id: v4(),
+      type,
       top,
       depth,
       size,
@@ -40,7 +41,7 @@ storiesOf('reactions', module)
 
     return (
       <div>
-        <ReactionFlowComponent flow={flow}>
+        <ReactionFlowComponent reactionFlow={reactionFlow}>
           <img src={require('../assets/Like.svg')} alt="like" />
         </ReactionFlowComponent>
         <div style={style} />
@@ -61,10 +62,10 @@ storiesOf('reactions', module)
       pointerEvents: 'none'
     };
 
-    const flows: FlowT[] = [];
+    const reactionFlows: ReactionFlowT[] = [];
     Array(numOfReactions).fill(0).map(() => {
-      flows.push({
-        uid: v4(),
+      reactionFlows.push({
+        id: v4(),
         type: 'Like',
         top: 30,
         depth: 30,
@@ -77,32 +78,11 @@ storiesOf('reactions', module)
 
     return (
       <div>
-        <ReactionsControllerComponent flows={flows} />
+        <ReactionsControllerComponent reactionFlows={reactionFlows} />
         <div style={style} />
       </div>
     );
   })
-  .add('<ReactionsPanel />', () => {
-    const top = number('top', 30);
-    const depth = number('depth', 30);
-    const size = number('size', 3);
-    const duration = number('duration', 5000);
-
-    const style: React.CSSProperties = {
-      position: 'fixed',
-      top: `${top}vh`,
-      left: 0,
-      width: '100vw',
-      height: `${depth}vh`,
-      backgroundColor: 'skyblue',
-      opacity: 0.3,
-      pointerEvents: 'none'
-    };
-
-    return (
-      <div>
-        <ReactionsPanel top={top} depth={depth} size={size} duration={duration} />
-        <div style={style} />
-      </div>
-    );
+  .add('<ReactionsPanelComponent />', () => {
+    return <ReactionsPanelComponent onClick={type => action(type)()} />;
   });
