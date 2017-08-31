@@ -12,7 +12,7 @@ type OwnPropsT = {
 };
 
 type ResponseT = {
-  createReactionFlowVariables: {
+  createReactionFlowEffect: {
     id: string;
   }
 };
@@ -36,27 +36,33 @@ class ReactionsPanel extends React.PureComponent<PropsT, StateT> {
 
   private handleClick = (type: 'Like' | 'Happy' | 'Angry') => {
     const { top, depth, size, duration, delay } = this.props;
-    const reactionFlowVariables = {
+    const reactionFlowEffect = {
       type,
-      pathFactors: [Math.random(), Math.random(), Math.random(), Math.random(), Math.random()] as [number, number, number, number, number]
+      pathFactors: [
+        Math.floor((Math.random() * 100) + 1) / 100,
+        Math.floor((Math.random() * 100) + 1) / 100,
+        Math.floor((Math.random() * 100) + 1) / 100,
+        Math.floor((Math.random() * 100) + 1) / 100,
+        Math.floor((Math.random() * 100) + 1) / 100
+      ] as [number, number, number, number, number]
     };
     this.props.mutate!({
-      variables: reactionFlowVariables
+      variables: reactionFlowEffect
     })
       .then(({ data }) => {
         this.setState({
-          reactionFlows: [{ id: data.createReactionFlowVariables.id, top, depth, size, duration, delay, ...reactionFlowVariables }]
+          reactionFlows: [{ id: data.createReactionFlowEffect.id, top, depth, size, duration, delay, ...reactionFlowEffect }]
         });
       });
   }
 }
 
 const submitReaction = gql`
-  mutation createReactionFlowVariables(
+  mutation createReactionFlowEffect(
     $type: String!,
     $pathFactors: [Float!]!
   ) {
-    createReactionFlowVariables(
+    createReactionFlowEffect(
       type: $type,
       pathFactors: $pathFactors
     ) {
