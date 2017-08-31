@@ -1,54 +1,62 @@
 import * as React from 'react';
 import { gql, graphql, ChildProps } from 'react-apollo';
-import ReactionsControllerComponent, { ReactionFlowDynamicParamsT } from './private/components/ReactionsControllerComponent';
+import ReactionsControllerComponent, { ReactionFlowT } from './private/components/ReactionsControllerComponent';
 import ReactionsPanelComponent from './private/components/ReactionsPanelComponent';
 
+type OwnPropsT = {
+  top: number,
+  depth: number,
+  size: number,
+  duration: number,
+  delay: number
+};
+
 type ResponseT = {
-  createReactionFlow: {
+  createReactionFlowVariables: {
     id: string;
   }
 };
 
-type PropsT = ChildProps<{}, ResponseT>;
+type PropsT = ChildProps<OwnPropsT, ResponseT>;
 
-type StateT = {
-  reactionFlowsDynamicParams: ReactionFlowDynamicParamsT[];
-};
+type StateT = { reactionFlows: ReactionFlowT[] };
 
 class ReactionsPanel extends React.PureComponent<PropsT, StateT> {
-  state = { reactionFlowsDynamicParams: [] };
+  state = { reactionFlows: [] };
 
   render() {
-    const { reactionFlowsDynamicParams } = this.state;
+    const { reactionFlows } = this.state;
     return (
       <div style={{ display: 'inline-block' }}>
-        <ReactionsControllerComponent
-          reactionFlowStaticParams={{ top: 0, depth: 30, size: 3, duration: 5000, delay: 0 }}
-          reactionFlowsDynamicParams={reactionFlowsDynamicParams}
-        />
+        <ReactionsControllerComponent reactionFlows={reactionFlows} />
         <ReactionsPanelComponent onClick={this.handleClick} />
       </div >
     );
   }
 
   private handleClick = (type: 'Like' | 'Happy' | 'Angry') => {
-    const reactionFlowDynamicParamsWithoutId = {
+    const { top, depth, size, duration, delay } = this.props;
+    const reactionFlowVariables = {
       type,
       pathFactors: [Math.random(), Math.random(), Math.random(), Math.random(), Math.random()] as [number, number, number, number, number]
     };
     this.props.mutate!({
-      variables: reactionFlowDynamicParamsWithoutId
+      variables: reactionFlowVariables
     })
-      .then(({ data }) => this.setState({ reactionFlowsDynamicParams: [{ id: data.createReactionFlow.id, ...reactionFlowDynamicParamsWithoutId }] }));
+      .then(({ data }) => {
+        this.setState({
+          reactionFlows: [{ id: data.createReactionFlowVariables.id, top, depth, size, duration, delay, ...reactionFlowVariables }]
+        });
+      });
   }
 }
 
 const submitReaction = gql`
-  mutation createReactionFlow(
+  mutation createReactionFlowVariables(
     $type: String!,
     $pathFactors: [Float!]!
   ) {
-    createReactionFlow(
+    createReactionFlowVariables(
       type: $type,
       pathFactors: $pathFactors
     ) {
@@ -57,7 +65,7 @@ const submitReaction = gql`
   }
 `;
 
-export default graphql<Response, {}, PropsT>(submitReaction)(ReactionsPanel);
+export default graphql<Response, OwnPropsT, PropsT>(submitReaction)(ReactionsPanel);
 
 // function staggeringFlow(top: number, depth: number, size: number, duration: number, type: 'Like' | 'Happy' | 'Angry'): FlowT[] {
 //   const rands: [number, number, number, number, number] = [Math.random(), Math.random(), Math.random(), Math.random(), Math.random()];

@@ -2,40 +2,23 @@ import * as React from 'react';
 import ReactionFlowComponent, { ReactionFlowT } from './ReactionFlowComponent';
 export { ReactionFlowT };
 
-export type ReactionFlowStaticParamsT = {
-  top: number,
-  depth: number,
-  size: number,
-  duration: number,
-  delay: number,
-};
-
-export type ReactionFlowDynamicParamsT = {
-  id: string;
-  type: 'Like' | 'Happy' | 'Angry';
-  pathFactors: [number, number, number, number, number]
-};
-
 type ChannelT = {
   isIdle: boolean;
   reactionFlow: ReactionFlowT;
 };
 
-type PropsT = {
-  reactionFlowStaticParams: ReactionFlowStaticParamsT;
-  reactionFlowsDynamicParams: ReactionFlowDynamicParamsT[];
-};
+type PropsT = { reactionFlows: ReactionFlowT[] };
 
 class ReactionsControllerComponent extends React.PureComponent<PropsT> {
   private channels: ChannelT[] = [];
 
   constructor(props: PropsT) {
     super(props);
-    this.setChannels(props.reactionFlowsDynamicParams);
+    this.setChannels(props.reactionFlows);
   }
 
   componentWillUpdate(nextProps: Readonly<PropsT>) {
-    this.setChannels(nextProps.reactionFlowsDynamicParams);
+    this.setChannels(nextProps.reactionFlows);
   }
 
   render() {
@@ -55,7 +38,7 @@ class ReactionsControllerComponent extends React.PureComponent<PropsT> {
     });
 
     return (
-      <div>
+      <div style={{ pointerEvents: 'none' }}>
         {display}
       </div>
     );
@@ -65,10 +48,8 @@ class ReactionsControllerComponent extends React.PureComponent<PropsT> {
     return () => this.channels[index].isIdle = true;
   }
 
-  private setChannels(reactionFlowsDynamicParams: ReactionFlowDynamicParamsT[]) {
-    const { reactionFlowStaticParams } = this.props;
-    reactionFlowsDynamicParams.map(reactionFlowDynamicParams => {
-      const reactionFlow: ReactionFlowT = { ...reactionFlowDynamicParams, ...reactionFlowStaticParams };
+  private setChannels(reactionFlows: ReactionFlowT[]) {
+    reactionFlows.map(reactionFlow => {
       const idleIndex = this.channels.findIndex(channel => channel.isIdle === true);
 
       if (idleIndex === -1) {
