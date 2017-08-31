@@ -11,7 +11,8 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.1.2",
     "redux-saga": "^0.15.6",
-    "styled-components": "^2.1.2"
+    "styled-components": "^2.1.2",
+    "subscriptions-transport-ws": "^0.8.2"
   },
   "devDependencies": {
     "@storybook/addon-knobs": "^3.2.6",
@@ -28,6 +29,7 @@
     "@types/storybook__addon-actions": "^3.0.1",
     "@types/storybook__addon-knobs": "^3.2.0",
     "@types/storybook__react": "^3.0.5",
+    "@types/ws": "^3.0.2",
     "node-uuid": "^1.4.8",
     "react-scripts-ts": "2.6.0"
   },
