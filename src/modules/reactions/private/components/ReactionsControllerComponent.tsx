@@ -1,14 +1,14 @@
 import * as React from 'react';
-import ReactionFlowComponent, { FlowT } from './ReactionFlowComponent';
-export { FlowT };
+import ReactionFlowComponent, { ReactionFlowT } from './ReactionFlowComponent';
+export { ReactionFlowT };
 
 type ChannelT = {
   isIdle: boolean;
-  flow: FlowT;
+  reactionFlow: ReactionFlowT;
 };
 
 type PropsT = {
-  flows: FlowT[];
+  reactionFlows: ReactionFlowT[];
 };
 
 class ReactionsControllerComponent extends React.PureComponent<PropsT> {
@@ -16,18 +16,18 @@ class ReactionsControllerComponent extends React.PureComponent<PropsT> {
 
   constructor(props: PropsT) {
     super(props);
-    this.setChannels(props.flows);
+    this.setChannels(props.reactionFlows);
   }
 
   componentWillUpdate(nextProps: Readonly<PropsT>) {
-    this.setChannels(nextProps.flows);
+    this.setChannels(nextProps.reactionFlows);
   }
 
   render() {
     const display = this.channels.map((channel, index) => {
-      const { uid, type, top, depth, size, delay, duration, pathFactors } = channel.flow;
-      const flow: FlowT = {
-        uid,
+      const { id, type, top, depth, size, delay, duration, pathFactors } = channel.reactionFlow;
+      const reactionFlow: ReactionFlowT = {
+        id,
         type,
         top,
         depth,
@@ -36,7 +36,7 @@ class ReactionsControllerComponent extends React.PureComponent<PropsT> {
         duration,
         pathFactors
       };
-      return <ReactionFlowComponent key={index} flow={flow} onAnimationComplete={this.handleAnimationComplete(index)} />;
+      return <ReactionFlowComponent key={index} reactionFlow={reactionFlow} onAnimationComplete={this.handleAnimationComplete(index)} />;
     });
 
     return (
@@ -50,16 +50,16 @@ class ReactionsControllerComponent extends React.PureComponent<PropsT> {
     return () => this.channels[index].isIdle = true;
   }
 
-  private setChannels(flows: FlowT[]) {
-    flows.map(flow => {
-      const idleIndex = this.channels.findIndex(reactionFlow => reactionFlow.isIdle === true);
+  private setChannels(reactionFlows: ReactionFlowT[]) {
+    reactionFlows.map(reactionFlow => {
+      const idleIndex = this.channels.findIndex(channel => channel.isIdle === true);
 
       if (idleIndex === -1) {
         // unable to find idle flow
-        this.channels.push({ isIdle: false, flow });
+        this.channels.push({ isIdle: false, reactionFlow });
       } else {
         // reuse idle channel to reduce dom creation
-        this.channels[idleIndex] = { isIdle: false, flow };
+        this.channels[idleIndex] = { isIdle: false, reactionFlow };
       }
     });
   }

@@ -25,6 +25,7 @@
     "@types/react-dom": "^15.5.3",
     "@types/react-redux": "^5.0.4",
     "@types/react-router-dom": "^4.0.7",
+    "@types/storybook__addon-actions": "^3.0.1",
     "@types/storybook__addon-knobs": "^3.2.0",
     "@types/storybook__react": "^3.0.5",
     "node-uuid": "^1.4.8",

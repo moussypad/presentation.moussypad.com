@@ -1,65 +1,85 @@
 import * as React from 'react';
-import { v4 } from 'node-uuid';
-import ReactionsControllerComponent, { FlowT } from './private/components/ReactionsControllerComponent';
+import { gql, graphql, ChildProps } from 'react-apollo';
+import ReactionsControllerComponent, { ReactionFlowT } from './private/components/ReactionsControllerComponent';
+import ReactionsPanelComponent from './private/components/ReactionsPanelComponent';
 
-// tslint:disable-next-line:no-any
-const like = require('./private/assets/Like.svg') as any;
-// tslint:disable-next-line:no-any
-const happy = require('./private/assets/Happy.svg') as any;
-// tslint:disable-next-line:no-any
-const angry = require('./private/assets/Angry.svg') as any;
-
-type PropsT = {
+type OwnPropsT = {
   top: number,
   depth: number,
   size: number,
   duration: number
 };
 
+type ResponseT = {
+  createReactionFlow: {
+    id: string;
+  }
+};
+
+type PropsT = ChildProps<OwnPropsT, ResponseT>;
+
 type StateT = {
-  flows: FlowT[];
+  reactionFlows: ReactionFlowT[];
 };
 
 class ReactionsPanel extends React.PureComponent<PropsT, StateT> {
-  constructor(props: PropsT) {
-    super(props);
-    this.state = {
-      flows: []
-    };
-  }
+  state = { reactionFlows: [] };
 
   render() {
-    const { flows } = this.state;
+    const { reactionFlows } = this.state;
     return (
       <div style={{ display: 'inline-block' }}>
-        <ReactionsControllerComponent flows={flows} />
-        <img src={like} style={{ width: 50, padding: 10 }} onClick={this.handleClick('Like')} alt="Like" />
-        <img src={happy} style={{ width: 50, padding: 10 }} onClick={this.handleClick('Happy')} alt="Happy" />
-        <img src={angry} style={{ width: 50, padding: 10 }} onClick={this.handleClick('Angry')} alt="Angry" />
+        <ReactionsControllerComponent reactionFlows={reactionFlows} />
+        <ReactionsPanelComponent onClick={this.handleClick} />
       </div >
     );
   }
 
   private handleClick = (type: 'Like' | 'Happy' | 'Angry') => {
     const { top, depth, size, duration } = this.props;
-    return () => {
-      this.setState({
-        flows: [
-          {
-            uid: v4(),
-            type,
-            top,
-            depth,
-            size,
-            delay: 0,
-            duration,
-            pathFactors: [Math.random(), Math.random(), Math.random(), Math.random(), Math.random()]
-          }
-        ]
-      });
+    const preFlow = {
+      type,
+      top,
+      depth,
+      size,
+      delay: 0,
+      duration,
+      pathFactors: [Math.random(), Math.random(), Math.random(), Math.random(), Math.random()] as [number, number, number, number, number]
     };
+    this.props.mutate!(
+      {
+        variables: preFlow
+      }
+    )
+      .then(({ data }) => this.setState({ reactionFlows: [{ id: data.createReactionFlow.id, ...preFlow }] }));
   }
 }
+
+const submitReaction = gql`
+  mutation createReactionFlow(
+    $type: String!,
+    $top: Int!,
+    $depth: Int!,
+    $size: Int!,
+    $delay: Int!,
+    $duration: Int!,
+    $pathFactors: [Float!]!
+  ) {
+    createReactionFlow(
+      type: $type, 
+      top: $top,
+      depth: $depth,
+      size: $size,
+      delay: $delay,
+      duration: $duration,
+      pathFactors: $pathFactors
+    ) {
+      id
+    }
+  }
+`;
+
+export default graphql<Response, OwnPropsT, PropsT>(submitReaction)(ReactionsPanel);
 
 // function staggeringFlow(top: number, depth: number, size: number, duration: number, type: 'Like' | 'Happy' | 'Angry'): FlowT[] {
 //   const rands: [number, number, number, number, number] = [Math.random(), Math.random(), Math.random(), Math.random(), Math.random()];
@@ -78,5 +98,3 @@ class ReactionsPanel extends React.PureComponent<PropsT, StateT> {
 //   });
 //   return flows;
 // }
-
-export default ReactionsPanel;
