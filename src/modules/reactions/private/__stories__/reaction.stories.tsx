@@ -4,7 +4,7 @@ import { withKnobs, number } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { v4 } from 'node-uuid';
 import ReactionFlowComponent, { ReactionFlowT } from '../components/ReactionFlowComponent';
-import ReactionsControllerComponent from '../components/ReactionsControllerComponent';
+import ReactionsControllerComponent, { ReactionFlowStaticParamsT, ReactionFlowDynamicParamsT } from '../components/ReactionsControllerComponent';
 import ReactionsPanelComponent from '../components/ReactionsPanelComponent';
 
 storiesOf('reactions', module)
@@ -62,23 +62,25 @@ storiesOf('reactions', module)
       pointerEvents: 'none'
     };
 
-    const reactionFlows: ReactionFlowT[] = [];
+    const reactionFlowStaticParams: ReactionFlowStaticParamsT = {
+      top: 30, depth: 30, size: 3, duration: 5000, delay: 1000
+    };
+
+    const reactionFlowsDynamicParams: ReactionFlowDynamicParamsT[] = [];
     Array(numOfReactions).fill(0).map(() => {
-      reactionFlows.push({
+      reactionFlowsDynamicParams.push({
         id: v4(),
         type: 'Like',
-        top: 30,
-        depth: 30,
-        size: 3,
-        delay: 1000,
-        duration: 5000,
         pathFactors: [Math.random(), Math.random(), Math.random(), Math.random(), Math.random()]
       });
     });
 
     return (
       <div>
-        <ReactionsControllerComponent reactionFlows={reactionFlows} />
+        <ReactionsControllerComponent
+          reactionFlowStaticParams={reactionFlowStaticParams}
+          reactionFlowsDynamicParams={reactionFlowsDynamicParams}
+        />
         <div style={style} />
       </div>
     );

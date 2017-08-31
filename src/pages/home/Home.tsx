@@ -16,7 +16,7 @@ class Home extends React.PureComponent {
           <h2>Welcome to React</h2>
         </div>
         <LoginButton />
-        <ReactionsPanel top={70} depth={30} size={3} duration={5000}/>
+        <ReactionsPanel />
       </div>
     );
   }
