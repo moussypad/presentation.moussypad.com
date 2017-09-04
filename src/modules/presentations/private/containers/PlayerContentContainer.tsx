@@ -17,8 +17,8 @@ class PlayerContentContainer extends React.PureComponent<StateToPropsT> {
     return (
       <div style={{ width: '100vw', height: '100vh' }}>
         <GoogleSlidesContainer />
-        <FullscreenSideMenuContainer />
         {isPlaying && isReactionFlowsActive && <ReactionsController top={70} depth={30} size={3} duration={5000} delay={0} />}
+        <FullscreenSideMenuContainer />
       </div>
     );
   }
