@@ -10,7 +10,7 @@ type PropsT = {
   style?: React.CSSProperties
 };
 
-class PresentationGridDump extends React.PureComponent<PropsT> {
+class PresentationGridComponent extends React.PureComponent<PropsT> {
   render() {
     const { presentations, style } = this.props;
     return (
@@ -29,4 +29,4 @@ class PresentationGridDump extends React.PureComponent<PropsT> {
   }
 }
 
-export default PresentationGridDump;
+export default PresentationGridComponent;
