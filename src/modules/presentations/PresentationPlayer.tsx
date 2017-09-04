@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootStateT } from './reduxConnect';
+import * as screenfull from 'screenfull';
 import { actionCreators } from './private/redux/player.actions';
 import { PlayerStateT } from './private/redux/player.reducers';
 
@@ -21,21 +22,25 @@ class PresentationPlayer extends React.PureComponent<PropsT> {
   private style: React.CSSProperties = { display: 'none' };
 
   componentDidMount() {
-    document.addEventListener('webkitfullscreenchange', event => {
-      if (!document.webkitFullscreenElement) {
-        this.props.exitPresentation();
-      }
-    });
+    if (screenfull.enabled) {
+      screenfull.on('change', () => {
+        if (!screenfull.isFullscreen) {
+          this.props.exitPresentation();
+        }
+      });
+    }
   }
 
   componentWillUpdate(nextProps: Readonly<PropsT>) {
     const { isPlaying } = nextProps.playerState;
     if (isPlaying) {
-      this.fullscreenRef!.webkitRequestFullscreen();
+      if (screenfull.enabled) { 
+        screenfull.request(this.fullscreenRef!);
+      }
       this.style = { display: 'block' };
     } else {
-      if (document.webkitFullscreenElement) {
-        document.webkitExitFullscreen();
+      if (screenfull.enabled && screenfull.isFullscreen) {
+        screenfull.exit();
       }
       this.style = { display: 'none' };
     }

@@ -221,6 +221,10 @@
   version "16.0.2"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.2.tgz#0b31a73cdde6272b719e5b05a7df6d1e2654a804"
 
+"@types/screenfull@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@types/screenfull/-/screenfull-3.3.1.tgz#9d9919025c47327c6012110ebd7880cae9e0913e"
+
 "@types/storybook__addon-actions@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@types/storybook__addon-actions/-/storybook__addon-actions-3.0.1.tgz#e76b6cc3e6221d6578962a2ae59c3c33b6762453"
@@ -6799,6 +6803,10 @@ schema-utils@^0.3.0, schema-utils@^0.x:
   resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.3.0.tgz#f5877222ce3e931edae039f17eb3716e7137f8cf"
   dependencies:
     ajv "^5.0.0"
+
+screenfull@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/screenfull/-/screenfull-3.3.1.tgz#5eea886b412043af89e2e5cc4433f894d0ebb90b"
 
 scroll@^2.0.0:
   version "2.0.0"
