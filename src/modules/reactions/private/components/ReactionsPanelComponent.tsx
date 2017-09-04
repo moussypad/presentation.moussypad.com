@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { TypeT } from './ReactionFlowComponent';
 
 type PropsT = {
-  onClick: (type: 'Like' | 'Happy' | 'Angry') => void;
+  onClick: (type: TypeT) => void;
 };
 
 class ReactionsPanelComponent extends React.PureComponent<PropsT> {

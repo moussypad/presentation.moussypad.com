@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { gql, graphql, ChildProps } from 'react-apollo';
-import ReactionsControllerComponent, { ReactionFlowT } from './private/components/ReactionsControllerComponent';
+import ReactionsControllerComponent, { ReactionFlowT, ReactionFlowEffectT, TypeT } from './private/components/ReactionsControllerComponent';
 import ReactionsPanelComponent from './private/components/ReactionsPanelComponent';
 
 type OwnPropsT = {
@@ -34,9 +34,9 @@ class ReactionsPanel extends React.PureComponent<PropsT, StateT> {
     );
   }
 
-  private handleClick = (type: 'Like' | 'Happy' | 'Angry') => {
+  private handleClick = (type: TypeT) => {
     const { top, depth, size, duration, delay } = this.props;
-    const reactionFlowEffect = {
+    const reactionFlowEffect: ReactionFlowEffectT = {
       type,
       pathFactors: [
         Math.floor((Math.random() * 100) + 1) / 100,
@@ -44,7 +44,7 @@ class ReactionsPanel extends React.PureComponent<PropsT, StateT> {
         Math.floor((Math.random() * 100) + 1) / 100,
         Math.floor((Math.random() * 100) + 1) / 100,
         Math.floor((Math.random() * 100) + 1) / 100
-      ] as [number, number, number, number, number]
+      ]
     };
     this.props.mutate!({
       variables: reactionFlowEffect

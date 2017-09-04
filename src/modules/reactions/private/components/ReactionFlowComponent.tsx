@@ -7,15 +7,19 @@ type TranslateYUpDown = number;
 type TranslateY50 = number;
 type TranslateX100 = number;
 
+export type TypeT = 'Like' | 'Happy' | 'Angry';
+
+export type PathFactorsT = [StartTop, StartLeft, TranslateYUpDown, TranslateY50, TranslateX100];
+
 export type ReactionFlowT = {
   id: string;
-  type: 'Like' | 'Happy' | 'Angry';
+  type: TypeT;
   top: number;
   depth: number;
   size: number;
   delay: number;
   duration: number;
-  pathFactors: [StartTop, StartLeft, TranslateYUpDown, TranslateY50, TranslateX100]
+  pathFactors: PathFactorsT;
 };
 
 type PropsT = {
