@@ -1,17 +1,31 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { PlayerStateT } from '../redux/player.reducers';
+import { RootStateT } from '../../reduxConnect';
 
 import GoogleSlidesContainer from './GoogleSlidesContainer';
 import FullscreenSideMenuContainer from './FullscreenSideMenuContainer';
+import ReactionsController from '../../../../modules/reactions/ReactionsController';
 
-class PlayerContentContainer extends React.PureComponent {
+type StateToPropsT = {
+  playerState: PlayerStateT
+};
+
+class PlayerContentContainer extends React.PureComponent<StateToPropsT> {
   render() {
+    const { isPlaying, isReactionFlowsActive } = this.props.playerState;
     return (
       <div style={{ width: '100vw', height: '100vh' }}>
         <GoogleSlidesContainer />
         <FullscreenSideMenuContainer />
+        {isPlaying && isReactionFlowsActive && <ReactionsController top={70} depth={30} size={3} duration={5000} delay={0} />}
       </div>
     );
   }
 }
 
-export default PlayerContentContainer;
+const mapStateToProps = (appState: RootStateT) => ({
+  playerState: appState.presentationSuite.playerState
+});
+
+export default connect(mapStateToProps)(PlayerContentContainer);

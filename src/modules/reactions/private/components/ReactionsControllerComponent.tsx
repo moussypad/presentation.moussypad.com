@@ -1,10 +1,15 @@
 import * as React from 'react';
-import ReactionFlowComponent, { ReactionFlowT } from './ReactionFlowComponent';
-export { ReactionFlowT };
+import ReactionFlowComponent, { ReactionFlowT, TypeT, PathFactorsT } from './ReactionFlowComponent';
+export { ReactionFlowT, TypeT, PathFactorsT };
 
 type ChannelT = {
   isIdle: boolean;
   reactionFlow: ReactionFlowT;
+};
+
+export type ReactionFlowEffectT = {
+  type: TypeT;
+  pathFactors: PathFactorsT;
 };
 
 type PropsT = { reactionFlows: ReactionFlowT[] };
