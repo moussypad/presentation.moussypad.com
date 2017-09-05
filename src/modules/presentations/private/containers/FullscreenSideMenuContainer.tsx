@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
+import { PlayerStateT } from '../redux/player.reducers';
+import { RootStateT } from '../../reduxConnect';
 import { actionCreators } from '../redux/player.actions';
 import FullscreenSideMenu from '../../../../components/FullscreenSideMenu';
 
@@ -7,26 +9,29 @@ import Button from 'material-ui/Button';
 import Poll from 'material-ui-icons/Poll';
 import ThumbsUpDown from 'material-ui-icons/ThumbsUpDown';
 import QuestionAnswer from 'material-ui-icons/QuestionAnswer';
+import FabSwitchWrapper from '../../../../components/FabSwitchWrapper';
+
+type StateToPropsT = {
+  playerState: PlayerStateT
+};
 
 type DispatchToPropsT = {
   activateReactionFlows: () => void,
   deactivateReactionFlows: () => void
 };
 
-type PropsT = DispatchToPropsT;
+type PropsT = StateToPropsT & DispatchToPropsT;
 
-type StateT = {
-  thumbsUpDownToggle: boolean;
-};
-
-class FullscreenSideMenuContainer extends React.PureComponent<PropsT, StateT> {
-  state = { thumbsUpDownToggle: false };
+class FullscreenSideMenuContainer extends React.PureComponent<PropsT> {
   render() {
+    const { isReactionFlowsActive } = this.props.playerState;
     return (
       <FullscreenSideMenu position="right" align="start">
-        <Button fab color="primary" aria-label="ThumbsUpDown" onClick={this.handleClickThumbsUpDown}>
-          <ThumbsUpDown />
-        </Button>
+        <FabSwitchWrapper on={isReactionFlowsActive}>
+          <Button fab color="primary" aria-label="ThumbsUpDown" onClick={this.handleClickThumbsUpDown}>
+            <ThumbsUpDown />
+          </Button>
+        </FabSwitchWrapper>
         <Button fab color="accent" aria-label="Poll">
           <Poll />
         </Button>
@@ -38,16 +43,19 @@ class FullscreenSideMenuContainer extends React.PureComponent<PropsT, StateT> {
   }
 
   handleClickThumbsUpDown = () => {
-    const { activateReactionFlows, deactivateReactionFlows } = this.props;
-    const { thumbsUpDownToggle } = this.state;
-    !thumbsUpDownToggle ? activateReactionFlows() : deactivateReactionFlows();
-    this.setState({ thumbsUpDownToggle: !thumbsUpDownToggle });
+    const { activateReactionFlows, deactivateReactionFlows, playerState } = this.props;
+    const { isReactionFlowsActive } = playerState;
+    isReactionFlowsActive ? deactivateReactionFlows() : activateReactionFlows();
   }
 }
+
+const mapStateToProps = (appState: RootStateT) => ({
+  playerState: appState.presentationSuite.playerState
+});
 
 const mapDispatchToProps = (dispatch: Dispatch<{}>) => ({
   activateReactionFlows: () => dispatch(actionCreators.activateReactionFlows()),
   deactivateReactionFlows: () => dispatch(actionCreators.deactivateReactionFlows())
 });
 
-export default connect<null, DispatchToPropsT, null>(null, mapDispatchToProps)(FullscreenSideMenuContainer);
+export default connect<StateToPropsT, DispatchToPropsT, null>(mapStateToProps, mapDispatchToProps)(FullscreenSideMenuContainer);
